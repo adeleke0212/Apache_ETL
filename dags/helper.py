@@ -12,6 +12,7 @@ REGION = config['S3_CONN']['region']
 BUCKET_NAME = config['S3_CONN']['bucket_name']
 
 raw_test_path = "s3//{}/raw/{}.csv"
+# raw_test_path = s3//bucket_name/raw/filename.csv
 
 
 def create_s3_bucket():
@@ -65,7 +66,9 @@ def extract_from_merchants():
     ordernow = db_client_conn.ordernow
     merchants = ordernow.merchants
     # merchants = db_client_conn.ordernow.merchants
+    # a cursor equivalent of cursor.fetchall()
     return merchants.find()
+
 
 # extract customers
 
@@ -84,6 +87,8 @@ def extract_from_orders():
     orders = ordernow.orders
     return orders
 
+# Reading from the data lake
+
 
 def read_csv_from_lake(s3_path):
     df = pd.read_csv(s3_path, storage_options={
@@ -91,6 +96,8 @@ def read_csv_from_lake(s3_path):
     })
     print(df.head())
     return df
+
+# Writing to data lake after transformation
 
 
 def write_csv_to_lake(s3_path, df):

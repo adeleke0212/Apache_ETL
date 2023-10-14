@@ -6,9 +6,9 @@ from helper import read_csv_from_lake, write_csv_to_lake
 config = ConfigParser()
 config.read('.env')
 
-access_key = config['AWS']['access_key']
-secret_key = config['AWS']['secret_key']
-bucket_name = config['S3']['bucket_name']
+access_key = config['S3_CONN']['access_key']
+secret_key = config['S3_CONN']['secret_key']
+bucket_name = config['S3_CONN']['bucket_name']
 
 raw_s3_uri = 's3://{}/raw/{}.csv'
 clean_s3_uri = 's3://{}/clean/{}.csv'
@@ -45,6 +45,15 @@ def clean_customers_data():
     df['referred_by'] = df['referred_by'].apply(lambda x: str(
         x) if type(x) == int or type(x) == float else 'null')
     write_csv_to_lake(clean_s3_uri.format(bucket_name, 'customers'), df)
+
+
+def string_converter(x):
+    if type(x) == int:
+        str(x)
+    elif type(x) == float:
+        str(x)
+    else:
+        x = ''
 
 
 def clean_merchants_data():

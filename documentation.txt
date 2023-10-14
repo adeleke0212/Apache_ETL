@@ -1,0 +1,29 @@
+# Connect to mongo db using pymongo and extract some data
+# We use pymongo, a python pachage to nconnect to mongodb
+
+from pymongo import MongoClient
+
+mongo_conn_url = 'mongodb+srv://student1:6u0N1fZ7cCd7j5uK@tenalytics.vecttgs.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp'
+# student1 = username, password = 6u0N1fZ7cCd7j5uK and rest is details about the cluster
+
+# Mongo DB connection options to tenalytics mongo data
+
+# link 1: 'mongodb+srv://student1:6u0N1fZ7cCd7j5uK@tenalytics.vecttgs.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp'
+
+# Create the connection to mongodb cluster, mongoclient takes a param which is the connection string
+conn = MongoClient(mongo_conn_url)
+
+# Name of collection/database in tenalytics mongodb
+
+# Creating connection to ordernow database/collection in mongodb
+ordernow = conn.ordernow
+
+# to see the docs existing in the database, merchants, customers, order are docs in ordernow db/collection
+
+merchants = ordernow.merchants  # to check what we have in merchants doc
+
+for item in merchants.find():
+    print(item)
+
+
+# Setting up airflow
