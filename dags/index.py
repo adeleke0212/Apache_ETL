@@ -7,14 +7,14 @@ from airflow.operators.python import PythonOperator
 from helper import create_bucket
 from extraction import extract_customers_to_lake, extract_merchants_to_lake, extract_orders_to_lake
 from transformation import (clean_customers_data, clean_orders_data, clean_merchants_data,
-                            agg_customer_order_rejection, agg_customers_per_state, agg_total_orders_per_month, agg_orders_list)
+                            agg_customer_order_rejection, agg_customers_per_state, agg_total_orders_per_month, agg_orders_list, email)
 
 
 with DAG(
     "ordernow",
     default_args={
         "depends_on_past": False,
-        "email": ["dataengineering@10alytics.org"],
+        "email": [email],
         "email_on_failure": True,
         "email_on_retry": True,
         "retries": 1,
@@ -23,7 +23,7 @@ with DAG(
     },
     description="A simple tutorial DAG",
     schedule='@once',
-    start_date=datetime(2023, 9, 24),
+    start_date=datetime(2023, 10, 9),
 ) as dag:
 
     begin_execution = DummyOperator(task_id='begin_execution')

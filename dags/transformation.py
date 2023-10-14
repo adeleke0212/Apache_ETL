@@ -10,6 +10,8 @@ access_key = config['S3_CONN']['access_key']
 secret_key = config['S3_CONN']['secret_key']
 bucket_name = config['S3_CONN']['bucket_name']
 
+email = config['DAGG']['email']
+
 raw_s3_uri = 's3://{}/raw/{}.csv'
 clean_s3_uri = 's3://{}/clean/{}.csv'
 agg_s3_uri = 's3://{}/agg/{}/{}.csv'
